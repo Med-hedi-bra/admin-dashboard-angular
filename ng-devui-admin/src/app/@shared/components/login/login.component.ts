@@ -40,21 +40,21 @@ export class LoginComponent implements OnInit {
 
   formRules: { [key: string]: DValidateRules } = {
     usernameRules: {
-      validators: [
-        { required: true },
-        { minlength: 3 },
-        { maxlength: 20 },
-        {
-          pattern: /^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$/,
-          message: 'The user name cannot contain characters except uppercase and lowercase letters.',
-        },
-      ],
+      // validators: [
+      //   { required: true },
+      //   { minlength: 3 },
+      //   { maxlength: 20 },
+      //   {
+      //     pattern: /^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$/,
+      //     message: 'The user name cannot contain characters except uppercase and lowercase letters.',
+      //   },
+      // ],
     },
     emailRules: {
-      validators: [{ required: true }, { email: true }],
+      // validators: [{ required: true }, { email: true }],
     },
     passwordRules: {
-      validators: [{ required: true }, { minlength: 6 }, { maxlength: 15 }, { pattern: /^[a-zA-Z0-9\d@$!%*?&.]+(\s+[a-zA-Z0-9]+)*$/ }],
+      // validators: [{ required: true }, { minlength: 6 }, { maxlength: 15 }, { pattern: /^[a-zA-Z0-9\d@$!%*?&.]+(\s+[a-zA-Z0-9]+)*$/ }],
       message: 'Enter a password that contains 6 to 15 digits and letters.',
     },
   };

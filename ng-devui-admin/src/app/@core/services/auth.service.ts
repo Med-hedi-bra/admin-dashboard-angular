@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { throwError, of } from 'rxjs';
 import { User } from 'src/app/@shared/models/user';
+import { HttpClient ,HttpHeaders  } from '@angular/common/http';
 
 const USERS = [
   {
@@ -34,17 +35,45 @@ const USERS = [
 
 @Injectable()
 export class AuthService {
-  constructor() {}
+  constructor(private http:HttpClient) {}
 
   login(account: string, password: string) {
-    for (let i = 0; i < USERS.length; i++) {
-      if (account === USERS[i].account && password === USERS[i].password) {
-        let { userName, gender, phoneNumber, email } = USERS[i];
-        let userInfo: User = { userName, gender, phoneNumber, email };
-        return of(userInfo);
-      }
-    }
+    // for (let i = 0; i < USERS.length; i++) {
+    //   if (account === USERS[i].account && password === USERS[i].password) {
+    //     let { userName, gender, phoneNumber, email } = USERS[i];
+    //     let userInfo: User = { userName, gender, phoneNumber, email };
+    //     return of(userInfo);
+    //   }
+    // }
+    const userL =  {
+      account: 'Admin',
+      gender: 'male',
+      userName: 'Admin',
+      password: 'DevUI.admin',
+      phoneNumber: '19999996666',
+      email: 'admin@devui.com',
+      userId: '100',
+    };
+    const body = {
+      cin:"00000000",
+    password:"1234"
+    };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer '
+    });
+    this.http.post("http://localhost:8080/municipality/auth/login",body,{ headers , observe:'response' }).subscribe(response=>{
+        const authHeader = response.headers.get('Authorization');
+        if(authHeader !=null){
+          const token = authHeader.split(' ')[1];
+          console.log(`token = ${token}`)
+        }
+        return of(userL);
+        
+        
+    });
     return throwError('Please make sure you have input correct account and password');
+
   }
 
   logout() {
