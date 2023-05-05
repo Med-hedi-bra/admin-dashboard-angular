@@ -6,6 +6,15 @@ export default {
       monitor: 'Monitor',
       workspace: 'Work Space',
     },
+    municipality: {
+      title: 'Municipality',
+      basicList: 'Basic List',
+      cardList: 'Card List',
+      editableList: 'Editable List',
+      advanceList: 'Municipality List',
+      treeList: 'Tree List',
+    },
+
     form: {
       title: 'Form',
       basicForm: 'Basic Form',
@@ -13,6 +22,7 @@ export default {
       advancedForm: 'Advanced Form',
       dynamicForm: 'Dynamic Form'
     },
+    
     list: {
       title: 'List',
       basicList: 'Basic List',

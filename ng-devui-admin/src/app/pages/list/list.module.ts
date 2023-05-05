@@ -15,6 +15,10 @@ import { AdvanceListComponent } from './advance-list/advance-list.component';
 import { TreeListComponent } from './tree-list/tree-list.component';
 import { AdminFormModule } from 'src/app/@shared/components/admin-form/admin-form.module';
 import { EditableListComponent } from './editable-list/editable-list.component';
+import { AdminListComponent } from './admin-list/admin-list.component';
+import { MunicipalityListComponent } from './municipality-list/municipality-list.component';
+import { DemandListComponent } from './demand-list/demand-list.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,10 @@ import { EditableListComponent } from './editable-list/editable-list.component';
     AdvanceListComponent,
     TreeListComponent,
     EditableListComponent,
+    AdminListComponent,
+    MunicipalityListComponent,
+    DemandListComponent,
+    UserListComponent,
   ],
   imports: [
     SharedModule,
@@ -36,4 +44,4 @@ import { EditableListComponent } from './editable-list/editable-list.component';
     TooltipModule,
   ],
 })
-export class ListModule {}
+export class ListModule { }

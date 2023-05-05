@@ -20,6 +20,8 @@ import { AdvanceFormComponent } from './advance-form/advance-form.component';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { AdminFormModule } from 'src/app/@shared/components/admin-form/admin-form.module';
 import { DynamicFormsModule } from 'src/app/@shared/components/dynamic-forms/dynamic-forms.module';
+import { MunicipalityFormComponent } from './municipality-form/municipality-form.component';
+import { AdminFormComponent } from './admin-form/admin-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { DynamicFormsModule } from 'src/app/@shared/components/dynamic-forms/dyn
     ModalFormComponent,
     AdvanceFormComponent,
     ModalFormContentComponent,
-    DynamicFormComponent
+    DynamicFormComponent,
+    MunicipalityFormComponent,
+    AdminFormComponent
   ],
   imports: [
     SharedModule,

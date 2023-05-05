@@ -6,7 +6,7 @@ export default {
       basicList: 'Basic List',
       cardList: 'Card List',
       editableList: 'Editable List',
-      advanceList: 'Advance List',
+      advanceList: 'Municipality List',
       treeList: 'Tree List',
     },
     basicList: {
@@ -22,7 +22,11 @@ export default {
       description: 'Supports table extension and table editing.'
     },
     advanceList: {
-      title: 'Advance List',
+      title: 'advanced List',
+      description: 'Allows users to select multiple items in the list and delete them in batches. Allows users to adjust the column width by dragging and dragging. Supports virtual scrolling, lazy loading, and filtering.'
+    },
+    municipality: {
+      title: 'Municipality List',
       description: 'Allows users to select multiple items in the list and delete them in batches. Allows users to adjust the column width by dragging and dragging. Supports virtual scrolling, lazy loading, and filtering.'
     },
     treeList: {
