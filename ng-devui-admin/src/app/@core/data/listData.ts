@@ -1,6 +1,31 @@
 import { Observable } from 'rxjs';
 
+export interface MunicipalityRow{
+  id_mun?: string;
+  maitre?: string;
+  president?: string;
+  secritaire?: string;
+}
 
+export interface UserRow{
+  cin?: string;
+  firstname?: string;
+  lastname?: string;
+  gender?: string;
+  role?: string;
+  valid?: string;
+}
+
+export interface DemandRow{
+  id?: string;
+  file?: string;
+  stat?: string;
+  type?: string;
+  title?: string;
+  cin?: string;
+  firstname?:string;
+  lastname?:string
+}
 export interface Item {
   id?: string;
   title?: string;
@@ -43,8 +68,9 @@ export interface Card {
 }
 
 export abstract class ListData {
-  abstract getListData(pager: ListPager): Observable<Item[]>;
-  abstract getOriginSource(pager: ListPager): Observable<Item[]>;
-  abstract getTreeSource(pager: ListPager): Observable<Item[]>;
+  abstract getListData(pager: ListPager): Observable<MunicipalityRow[]>;
+  abstract getOriginSource(pager: ListPager): Observable<MunicipalityRow[]>;
+  abstract getTreeSource(pager: ListPager): Observable<MunicipalityRow[]>;
+  
   abstract getCardSource(pager: ListPager): Observable<Card[]>;
 }

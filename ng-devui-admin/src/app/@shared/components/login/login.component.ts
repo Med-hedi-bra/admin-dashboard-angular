@@ -32,29 +32,29 @@ export class LoginComponent implements OnInit {
   languages = LANGUAGES;
 
   formData = {
-    userAccount: 'Admin',
-    userAccountPassword: 'DevUI.admin',
-    userEmail: 'admin@devui.com',
-    userEmailPassword: 'devuiadmin',
+    userAccount: '00000000',
+    userAccountPassword: '1234',
+    userEmail: '',
+    userEmailPassword: '',
   };
 
   formRules: { [key: string]: DValidateRules } = {
     usernameRules: {
-      validators: [
-        { required: true },
-        { minlength: 3 },
-        { maxlength: 20 },
-        {
-          pattern: /^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$/,
-          message: 'The user name cannot contain characters except uppercase and lowercase letters.',
-        },
-      ],
+      // validators: [
+      //   { required: true },
+      //   { minlength: 3 },
+      //   { maxlength: 20 },
+      //   {
+      //     pattern: /^[a-zA-Z0-9]+(\s+[a-zA-Z0-9]+)*$/,
+      //     message: 'The user name cannot contain characters except uppercase and lowercase letters.',
+      //   },
+      // ],
     },
     emailRules: {
-      validators: [{ required: true }, { email: true }],
+      // validators: [{ required: true }, { email: true }],
     },
     passwordRules: {
-      validators: [{ required: true }, { minlength: 6 }, { maxlength: 15 }, { pattern: /^[a-zA-Z0-9\d@$!%*?&.]+(\s+[a-zA-Z0-9]+)*$/ }],
+      // validators: [{ required: true }, { minlength: 6 }, { maxlength: 15 }, { pattern: /^[a-zA-Z0-9\d@$!%*?&.]+(\s+[a-zA-Z0-9]+)*$/ }],
       message: 'Enter a password that contains 6 to 15 digits and letters.',
     },
   };
@@ -110,10 +110,12 @@ export class LoginComponent implements OnInit {
       case 'tab1':
         this.authService.login(this.formData.userAccount, this.formData.userAccountPassword).subscribe(
           (res) => {
+            // console.log(res)
             this.authService.setSession(res);
             this.router.navigate(['/']);
           },
           (error) => {
+            // console.log(error)
             this.toastMessage = [
               {
                 severity: 'error',
