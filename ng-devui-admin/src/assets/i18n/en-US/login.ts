@@ -1,6 +1,6 @@
 export default {
   loginPage: {
-    coperation: 'DevUI Design Presented',
+    coperation: 'Login into you Dashboared',
     loginWays: {
       account: 'Account Login',
       email: 'Email Login',
@@ -14,9 +14,9 @@ export default {
     noticeMessage: {
       summary: 'Login Failed',
       accountContent:
-        'Please input correct username and password, username: Admin, password: DevUI.admin',
+        'Please input correct username and password',
       emailContent:
-        'Please input correct username and password, username: admin@devui.com, password: devuiadmin',
+        'Please input correct username and password',
     },
     other: 'Sign in with',
     register: 'Sign up',

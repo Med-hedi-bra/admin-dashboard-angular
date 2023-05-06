@@ -3,8 +3,8 @@ import enUS from '../assets/i18n/en-US';
 
 export const LANGUAGES = [
   {
-    code: 'zh-cn',
-    lang: '简体中文',
+    code: 'fr-ca',
+    lang: 'Francais',
     prefix: 'CN',
   },
   {
@@ -15,7 +15,7 @@ export const LANGUAGES = [
 ];
 
 export const I18N_LANGUAGES = ['zh-cn', 'en-us'];
-export const DEFAULT_LANG = 'zh-cn';
+export const DEFAULT_LANG = 'en-us';
 
 export const I18N = {
   'zh-cn': zhCN,

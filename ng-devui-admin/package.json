@@ -8,8 +8,8 @@
     "url": "https://github.com/DevCloudFE/ng-devui-admin"
   },
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --open --port 8001",
+    "ng": "ng", 
+    "start": "ng serve --open ",
     "build": "ng build",
     "build:website": "ng build --configuration production --base-href /admin/ --deploy-url /admin/ --output-path dist/admin",
     "test": "ng test",

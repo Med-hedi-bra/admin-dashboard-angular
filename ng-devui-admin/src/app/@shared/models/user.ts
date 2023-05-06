@@ -1,6 +1,9 @@
 export interface User {
-  userName: string;
+  cin: string;
   gender: string;
-  email: string;
-  phoneNumber: string;
+  firstname: string;
+  lastname: string;
+  valid:boolean;
+  role:string;
+  date:Date
 }

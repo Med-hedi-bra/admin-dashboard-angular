@@ -33,7 +33,7 @@ export class AuthGuardService implements CanActivate {
         life: 2000,
       });
       this.router.navigate(['login']);
-      return false;
+      return false; 
     } else {
       return true;
     }

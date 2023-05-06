@@ -32,10 +32,10 @@ export class LoginComponent implements OnInit {
   languages = LANGUAGES;
 
   formData = {
-    userAccount: 'Admin',
-    userAccountPassword: 'DevUI.admin',
-    userEmail: 'admin@devui.com',
-    userEmailPassword: 'devuiadmin',
+    userAccount: '00000000',
+    userAccountPassword: '1234',
+    userEmail: '',
+    userEmailPassword: '',
   };
 
   formRules: { [key: string]: DValidateRules } = {
@@ -110,10 +110,12 @@ export class LoginComponent implements OnInit {
       case 'tab1':
         this.authService.login(this.formData.userAccount, this.formData.userAccountPassword).subscribe(
           (res) => {
+            // console.log(res)
             this.authService.setSession(res);
             this.router.navigate(['/']);
           },
           (error) => {
+            // console.log(error)
             this.toastMessage = [
               {
                 severity: 'error',

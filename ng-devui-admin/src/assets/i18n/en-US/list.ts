@@ -1,5 +1,18 @@
 export default {
   list: {
+    municipality: {
+      title: 'Municipality List',
+      description: 'Allows users to select multiple items in the list and delete them in batches. Allows users to adjust the column width by dragging and dragging. Supports virtual scrolling, lazy loading, and filtering.'
+    },
+    admin: {
+      title: 'Municipality List',
+      description: 'Allows users to select multiple items in the list and delete them in batches. Allows users to adjust the column width by dragging and dragging. Supports virtual scrolling, lazy loading, and filtering.'
+    },
+
+
+
+
+
     breadcrumb: {
       home: 'Home',
       formPage: 'List',
@@ -25,10 +38,7 @@ export default {
       title: 'advanced List',
       description: 'Allows users to select multiple items in the list and delete them in batches. Allows users to adjust the column width by dragging and dragging. Supports virtual scrolling, lazy loading, and filtering.'
     },
-    municipality: {
-      title: 'Municipality List',
-      description: 'Allows users to select multiple items in the list and delete them in batches. Allows users to adjust the column width by dragging and dragging. Supports virtual scrolling, lazy loading, and filtering.'
-    },
+    
     treeList: {
       title: 'Tree List',
       description: 'Tree table rendering is supported.'
