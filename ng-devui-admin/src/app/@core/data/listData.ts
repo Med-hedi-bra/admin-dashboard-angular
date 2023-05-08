@@ -14,17 +14,16 @@ export interface UserRow{
   gender?: string;
   role?: string;
   valid?: string;
+  date_of_birth?:Date
+  code_mun?:number
 }
 
 export interface DemandRow{
-  id?: string;
+  idDemande?: number;
   file?: string;
-  stat?: string;
+  state?: string;
   type?: string;
   title?: string;
-  cin?: string;
-  firstname?:string;
-  lastname?:string
 }
 export interface Item {
   id?: string;

@@ -46,60 +46,61 @@
                 [tableLayout]="searchForm.layout"
                 [scrollable]="true"
               >
-                <d-column field="id" header="Id" [width]="'100px'">
+                <d-column field="cin" header="CIN" [width]="'100px'">
                   <d-cell>
                     <ng-template let-cellItem="cellItem">
                       {{ cellItem }}
                     </ng-template>
                   </d-cell>
                 </d-column>
-                <d-column field="title" header="Title" [width]="'300px'">
+                <d-column field="firstname" header="First Name" [width]="'300px'">
                   <d-cell>
                     <ng-template let-cellItem="cellItem">
-                      <span [title]="cellItem" class="over-flow-ellipsis" [style.width]="'300px'">
-                        <d-tag [tag]="'Epic'" [labelStyle]="'epic'"></d-tag>
-                        {{ cellItem }}
-                      </span>
+                      {{ cellItem }}
                     </ng-template>
                   </d-cell>
                 </d-column>
-                <d-column field="priority" header="Priority" [width]="'100px'">
+                <d-column field="lastname" header="Laste Name" [width]="'100px'">
+                  <d-cell>
+                    <ng-template let-cellItem="cellItem">
+                      {{ cellItem }}
+                    </ng-template>
+                  </d-cell>
+                </d-column>
+                <d-column field="gender" header="Gender" [width]="'100px'">
+                  <d-cell>
+                    <ng-template let-cellItem="cellItem">
+                      {{ cellItem }}
+                    </ng-template>
+                  </d-cell>
+                </d-column>
+                <d-column field="role" header="Role" [width]="'100px'">
                   <d-cell>
                     <ng-template let-cellItem="cellItem">
                       <d-tag [tag]="cellItem" [labelStyle]="cellItem"></d-tag>
                     </ng-template>
                   </d-cell>
                 </d-column>
-                <d-column field="iteration" header="Iteration" [width]="'100px'">
-                  <d-cell>
-                    <ng-template let-cellItem="cellItem">
-                      {{ cellItem }}
-                    </ng-template>
-                  </d-cell>
-                </d-column>
-                <d-column field="assignee" header="Assignee" [width]="'100px'">
-                  <d-cell>
-                    <ng-template let-cellItem="cellItem">
-                      <div class="over-flow-ellipsis">
-                        <d-avatar [name]="cellItem" [width]="24" [height]="24"></d-avatar>
-                        <span style="margin-left: 6px">{{ cellItem }}</span>
-                      </div>
-                    </ng-template>
-                  </d-cell>
-                </d-column>
-                <d-column field="status" header="Status" [width]="'100px'">
+                <d-column field="valid" header="Status" [width]="'100px'">
                   <d-cell>
                     <ng-template let-cellItem="cellItem">
                       <span [ngClass]="cellItem.split(' ')[0]">{{ cellItem || '--' }}</span>
                     </ng-template>
                   </d-cell>
                 </d-column>
-                <d-column field="timeline" header="Timeline" [width]="'100px'">
+                <d-column field="date_of_birth" header="Date Of Birth" [width]="'100px'">
                   <d-cell>
                     <ng-template let-cellItem="cellItem">
                       <div class="over-flow-ellipsis">
                         {{ cellItem }}
                       </div>
+                    </ng-template>
+                  </d-cell>
+                </d-column>
+                <d-column field="code_mun" header="Code Mun" [width]="'100px'">
+                  <d-cell>
+                    <ng-template let-cellItem="cellItem">
+                      {{ cellItem }}
                     </ng-template>
                   </d-cell>
                 </d-column>

@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, of as observableOf, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { Item, ListData, Card, ListPager, MunicipalityRow } from '../data/listData';
+import { Item, ListData, Card, ListPager, MunicipalityRow, UserRow, DemandRow } from '../data/listData';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { element } from 'protractor';
@@ -379,6 +379,44 @@ export class ListDataService extends ListData {
 
   ];
 
+  private userData:UserRow[]=[
+    {
+      cin: "string",
+  firstname: "string",
+  lastname: "str",
+  gender: "string",
+  role: "string",
+  valid: "false",
+  date_of_birth:new Date("02/03/2000"),
+  code_mun:100
+    },
+    {
+      cin: "string",
+  firstname: "string",
+  lastname: "str",
+  gender: "string",
+  role: "string",
+  valid: "true",
+  date_of_birth:new Date("02/03/2000"),
+  code_mun:100
+    }
+  ];
+   private demandData : DemandRow[] = [
+   {
+    idDemande: 20,
+    file: "string",
+    state: "PENDING",
+    type: "string",
+    title: "string",
+   },
+   {
+    idDemande: 204,
+    file: "string",
+    state: "PENDING",
+    type: "COPIECONFORME",
+    title: "string",
+   }
+   ]
 
 
   constructor(private http: HttpClient) {
@@ -386,7 +424,7 @@ export class ListDataService extends ListData {
 
   }
  
-  private pagerList(data: Item[] | Card[] | MunicipalityRow[], pager: ListPager) {
+  private pagerList(data: Item[] | Card[] | MunicipalityRow[] | UserRow[], pager: ListPager) {
     return data.slice(pager.pageSize! * (pager.pageIndex! - 1), pager.pageSize! * pager.pageIndex!);
   }
 
@@ -435,6 +473,20 @@ export class ListDataService extends ListData {
       total: this.munData.length,
     }).pipe(delay(500));
   }
+
+  getUserData(pager: ListPager): Observable<any> {
+    return observableOf({
+      pageList: this.pagerList(this.userData, pager),
+      total: this.userData.length,
+    }).pipe(delay(500));
+  }
+  getDemandData(pager: ListPager): Observable<any> {
+    return observableOf({
+      pageList: this.pagerList(this.demandData, pager),
+      total: this.demandData.length,
+    }).pipe(delay(500));
+  }
+
 
 
   getListData(pager: ListPager): Observable<any> {
