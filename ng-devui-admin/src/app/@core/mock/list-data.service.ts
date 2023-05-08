@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
-import { Observable, of as observableOf } from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
+import { Observable, of as observableOf, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { Item, ListData, Card, ListPager, MunicipalityRow } from '../data/listData';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { element } from 'protractor';
+
 
 @Injectable()
 export class ListDataService extends ListData {
-  private basicData: Item[] =[
+  private basicData: Item[] = [
     {
       id: '230000213706283786',
       title: 'Yriqtjdjd Omdfdvqxe Xxlfgjtnj Hsyf Qecu',
@@ -14,64 +18,64 @@ export class ListDataService extends ListData {
       assignee: 'Shirley Martin',
       status: 'Stuck',
       timeline: '1985-01-10',
-      // children: [
-      //   {
-      //     id: '230000132101025982',
-      //     title: 'Volbp Wdosdfbo Ukme Szbgjmeo Kodfsbn Aawyirm Rmbobdyn',
-      //     priority: 'Low',
-      //     iteration: 'iteration',
-      //     assignee: 'Daniel Martinez',
-      //     status: 'Done',
-      //     timeline: '2008-08-02',
-      //   },
-      //   {
-      //     id: '230000337101025982',
-      //     title: 'Volbp Wdobo Ukme Szbgjmasfsaeo Kobn Aawyirm Rmbobdyn',
-      //     priority: 'Low',
-      //     iteration: 'iteration',
-      //     assignee: 'Daniel Martinez',
-      //     status: 'Done',
-      //     timeline: '2008-08-02',
-      //     children: [
-      //       {
-      //         id: '22000098860224174X',
-      //         title: 'Ozhtysdfax Wfppasdf Essvpkjrx Havonov Cdcmgmggnj Vqwcwd Ooolirn',
-      //         priority: 'High',
-      //         iteration: 'iteration',
-      //         assignee: 'Margaret Clark',
-      //         status: '',
-      //         timeline: '2015-05-08',
-      //       },
-      //       {
-      //         id: '140000197123426183',
-      //         title: 'Govfunhwa Gkvcrasdfv Uvbq Gqyrasdfwntx Ofnnuwrnh',
-      //         priority: 'Low',
-      //         iteration: 'iteration',
-      //         assignee: 'Jason Rodriguez',
-      //         status: 'Done',
-      //         timeline: '1994-02-08',
-      //       },
-      //       {
-      //         id: '440000123807134089',
-      //         title: 'Rbhasdf Wklmth Xkeg Iasduzan Isufy',
-      //         priority: 'Medium',
-      //         iteration: 'iteration',
-      //         assignee: 'Kenneth Robinson',
-      //         status: 'Done',
-      //         timeline: '2017-02-04',
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: '521230200110166246',
-      //     title: 'Rrqdasfcneg Iknmasdf Tbo',
-      //     priority: 'Medium',
-      //     iteration: 'iteration',
-      //     assignee: 'Paul Hernandez',
-      //     status: 'Stuck',
-      //     timeline: '2017-02-01',
-      //   },
-      // ],
+      children: [
+        {
+          id: '230000132101025982',
+          title: 'Volbp Wdosdfbo Ukme Szbgjmeo Kodfsbn Aawyirm Rmbobdyn',
+          priority: 'Low',
+          iteration: 'iteration',
+          assignee: 'Daniel Martinez',
+          status: 'Done',
+          timeline: '2008-08-02',
+        },
+        {
+          id: '230000337101025982',
+          title: 'Volbp Wdobo Ukme Szbgjmasfsaeo Kobn Aawyirm Rmbobdyn',
+          priority: 'Low',
+          iteration: 'iteration',
+          assignee: 'Daniel Martinez',
+          status: 'Done',
+          timeline: '2008-08-02',
+          children: [
+            {
+              id: '22000098860224174X',
+              title: 'Ozhtysdfax Wfppasdf Essvpkjrx Havonov Cdcmgmggnj Vqwcwd Ooolirn',
+              priority: 'High',
+              iteration: 'iteration',
+              assignee: 'Margaret Clark',
+              status: '',
+              timeline: '2015-05-08',
+            },
+            {
+              id: '140000197123426183',
+              title: 'Govfunhwa Gkvcrasdfv Uvbq Gqyrasdfwntx Ofnnuwrnh',
+              priority: 'Low',
+              iteration: 'iteration',
+              assignee: 'Jason Rodriguez',
+              status: 'Done',
+              timeline: '1994-02-08',
+            },
+            {
+              id: '440000123807134089',
+              title: 'Rbhasdf Wklmth Xkeg Iasduzan Isufy',
+              priority: 'Medium',
+              iteration: 'iteration',
+              assignee: 'Kenneth Robinson',
+              status: 'Done',
+              timeline: '2017-02-04',
+            },
+          ],
+        },
+        {
+          id: '521230200110166246',
+          title: 'Rrqdasfcneg Iknmasdf Tbo',
+          priority: 'Medium',
+          iteration: 'iteration',
+          assignee: 'Paul Hernandez',
+          status: 'Stuck',
+          timeline: '2017-02-01',
+        },
+      ],
     },
   ];
   private cardSource: Card[] = [
@@ -337,33 +341,112 @@ export class ListDataService extends ListData {
         },
       ],
     },
-  ]; 
+  ];
 
-  private munData:MunicipalityRow[] = [
+  private munData: MunicipalityRow[] = [
+
     {
-      id_mun: "string",
-  maitre: "string",
-  president: "string",
-  secritaire: "string"
-    }
-  ]
+      idMun: "string",
+      maitre: "string",
+      president: "string",
+      secritaire: "string"
+    },
+    {
+      idMun: "string",
+      maitre: "string",
+      president: "string",
+      secritaire: "string"
+    },
+    {
+      idMun: "string",
+      maitre: "string",
+      president: "string",
+      secritaire: "string"
+    },
+    {
+      idMun: "string",
+      maitre: "string",
+      president: "string",
+      secritaire: "string"
+    },
+    {
+      idMun: "string",
+      maitre: "string",
+      president: "string",
+      secritaire: "string"
+    },
 
-  
-  private pagerList(data: Item[] | Card[]|MunicipalityRow[], pager: ListPager) {
+
+  ];
+
+
+
+  constructor(private http: HttpClient) {
+    super();
+
+  }
+ 
+  private pagerList(data: Item[] | Card[] | MunicipalityRow[], pager: ListPager) {
     return data.slice(pager.pageSize! * (pager.pageIndex! - 1), pager.pageSize! * pager.pageIndex!);
   }
+
+
+  fetchApi1(){
+    let url = environment.API_URL + "/municipality/";
+    return this.http.get<MunicipalityRow[]>(url).subscribe({
+      next: res => {
+        res.forEach(element => {
+          this.munData.push({
+            idMun: element.idMun,
+            maitre: element.maitre,
+            president: element.president,
+            secritaire: element.secritaire,
+          })
+        }
+        );
+        console.log("Mun data fetched");
+      },
+      error: err => {
+        throwError(() => new Error(err))
+      }
+    }
+    
+    )
+  }
+ 
+
+  updateMun(editedRow:MunicipalityRow){
+    let url = environment.API_URL+"/municipality/update/"+editedRow.idMun
+    this.http.put(url,editedRow).subscribe({
+      next:data=>{
+        console.log(data)
+      },
+      error:err=>{
+        throwError(()=>new Error(err))
+      }
+    })
+    
+
+  }
+
+  getMunData(pager: ListPager): Observable<any> {
+    return observableOf({
+      pageList: this.pagerList(this.munData, pager),
+      total: this.munData.length,
+    }).pipe(delay(500));
+  }
+
 
   getListData(pager: ListPager): Observable<any> {
     return observableOf({
       pageList: this.pagerList(this.basicData, pager),
       total: this.basicData.length,
-    }).pipe(delay(1000));
+    }).pipe(delay(800));
   }
-
   getOriginSource(pager: ListPager): Observable<any> {
     return observableOf({
-      pageList: this.pagerList(this.basicData, pager),
-      total: this.basicData.length,
+      pageList: this.pagerList(this.munData, pager),
+      total: this.munData.length,
     }).pipe(delay(1000));
   }
 

@@ -4,7 +4,6 @@ import { Observable, Subscription, catchError, map, throwError } from 'rxjs';
 import { Item, MunicipalityRow } from 'src/app/@core/data/listData';
 import { ListDataService } from 'src/app/@core/mock/list-data.service';
 import { FormConfig } from 'src/app/@shared/components/admin-form';
-import { MunicipalityService } from '../services/municipality.service';
 import { Municipality } from 'src/app/@shared/models/municipalityResponse';
 import { User } from 'src/app/@shared/models/user';
 
@@ -126,6 +125,32 @@ export class MunicipalityListComponent implements OnInit {
     labelSize: '',
   };
 
+  formConfigMun: FormConfig = {
+    layout: FormLayout.Horizontal,
+    items: [
+      {
+        label: 'Id_Mun',
+        prop: 'idMun',
+        type: 'input',
+      },
+      {
+        label: 'Président',
+        prop: 'president',
+        type: 'input',
+      },
+      {
+        label: 'Maitre',
+        prop: 'maitre',
+        type: 'input',
+      },
+      {
+        label: 'Secritaire',
+        prop: 'secritaire',
+        type: 'input',
+      },
+    ],
+    labelSize: '',
+  };
   formData = {};
 
   editForm: any = null;
@@ -146,25 +171,11 @@ export class MunicipalityListComponent implements OnInit {
   http: any;
   municipalityData!:Municipality[];
   users!:User[]
-  constructor(private municipalityService: MunicipalityService, private listDataService: ListDataService, private dialogService: DialogService, private cdr: ChangeDetectorRef) { }
+  editedRow!:MunicipalityRow;
+  constructor(private listeDataService:ListDataService, private listDataService: ListDataService, private dialogService: DialogService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.getList();
-
-
-    this.municipalityService.getMunicipalityData().subscribe(
-      {
-        next: data => {
-          this.municipalityData = data.body;
-          console.log(this.municipalityData);
-        },
-        error: err => {
-          throwError(() => new Error(err))
-        }
-      }
-    );
-
-
   }
 
   search() {
@@ -172,7 +183,7 @@ export class MunicipalityListComponent implements OnInit {
   }
 
   getList() {
-    this.busy = this.listDataService.getListData(this.pager).subscribe((res) => {
+    this.busy = this.listDataService.getMunData(this.pager).subscribe((res) => {
       const data = JSON.parse(JSON.stringify(res.pageList));
       this.basicDataSource = data;
       this.pager.total = res.total;
@@ -248,8 +259,11 @@ export class MunicipalityListComponent implements OnInit {
   }
 
   onSubmitted(e: any) {
+    this.editedRow = e;
     this.editForm!.modalInstance.hide();
     this.basicDataSource.splice(this.editRowIndex, 1, e);
+    // console.log(this.editedRow)
+    this.listDataService.updateMun(this.editedRow);
   }
 
   onCanceled() {

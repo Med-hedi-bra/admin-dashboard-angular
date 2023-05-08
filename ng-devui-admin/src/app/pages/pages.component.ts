@@ -12,6 +12,7 @@ import { DaScreenMediaQueryService } from '../@shared/layouts/da-grid';
 import { takeUntil } from 'rxjs/operators';
 import { SideMenuComponent } from '../@shared/components/side-menu/side-menu.component';
 import { Theme } from 'ng-devui/theme';
+import { ListDataService } from '../@core/mock/list-data.service';
 
 @Component({
   selector: 'da-pages',
@@ -36,7 +37,8 @@ export class PagesComponent implements OnInit {
     private layoutService: DaLayoutService,
     private translate: TranslateService,
     private mediaQueryService: DaScreenMediaQueryService,
-    private render2: Renderer2
+    private render2: Renderer2,
+    private dataService:ListDataService
   ) {
     this.personalizeService.initTheme();
     this.layoutService
@@ -68,6 +70,7 @@ export class PagesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dataService.fetchApi1();
     this.translate
       .get('page')
       .pipe(takeUntil(this.destroy$))

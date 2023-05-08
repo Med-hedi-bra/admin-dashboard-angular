@@ -38,6 +38,7 @@ export default function (values: any) {
       title: "Users",
       children:[
         { title: "User List", link: '/pages/list/userList' },
+        { title: "User By Municipality", link: '/pages/list/tree' },
       ],
       link: '/pages/list/',
       menuIcon: 'icon icon-mine',
