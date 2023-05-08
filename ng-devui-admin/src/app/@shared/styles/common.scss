@@ -37,17 +37,17 @@
     background-color: $devui-danger;
   }
 
-  &.High {
+  &.ADMIN {
     color: $devui-light-text;
     background-color: $devui-danger-line;
   }
 
-  &.Low {
+  &.SUBADMIN , &.COPIECONFORME{
     color: $devui-light-text;
     background-color: $devui-warning-line;
   }
 
-  &.Medium {
+  &.USER , &.LEGALISATION{
     color: $devui-light-text;
     background-color: $devui-form-control-line;
   }

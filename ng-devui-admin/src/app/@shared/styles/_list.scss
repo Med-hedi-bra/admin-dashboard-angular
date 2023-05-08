@@ -26,17 +26,17 @@
     }
   }
 
-  .Done {
+  .Valid , .ACCEPTED{
     color: $devui-success;
     font-weight: 600;
   }
 
-  .Working {
+  .Working , .PENDING{
     color: $devui-warning;
     font-weight: 600;
   }
 
-  .Stuck {
+  .Unvalid , .REJECTED{
     color: $devui-danger;
     font-weight: 600;
   }

@@ -2,7 +2,7 @@
 import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DialogService, FormLayout, TableWidthConfig } from 'ng-devui';
 import { Subscription } from 'rxjs';
-import { Item } from 'src/app/@core/data/listData';
+import { Item, UserRow } from 'src/app/@core/data/listData';
 import { ListDataService } from 'src/app/@core/mock/list-data.service';
 import { FormConfig } from 'src/app/@shared/components/admin-form';
 @Component({
@@ -66,59 +66,68 @@ export class UserListComponent implements OnInit{
       },
     ];
   
-    basicDataSource: Item[] = [];
+    basicDataSource: UserRow[] = [];
   
     formConfig: FormConfig = {
       layout: FormLayout.Horizontal,
       items: [
         {
-          label: 'Id',
-          prop: 'id',
+          label: 'CIN',
+          prop: 'cin',
           type: 'input',
-        },
-        {
-          label: 'Title',
-          prop: 'title',
-          type: 'input',
-          required: true,
           rule: {
             validators: [{ required: true }],
           },
         },
         {
-          label: 'Priority',
-          prop: 'priority',
+          label: 'Id_Mun',
+          prop: 'code_mun',
+          type: 'input',
+          rule: {
+            validators: [{ required: true }],
+          },
+         
+        },
+        {
+          label: 'First Name',
+          prop: 'firstname',
+          type: 'input',
+          required: true,
+          
+        },
+        {
+          label: 'Last Name',
+          prop: 'lastname',
+          type: 'input',
+         
+        },
+        {
+          label: 'Gender',
+          prop: 'gender',
           type: 'select',
-          options: ['Low', 'Medium', 'High'],
-        },
-        {
-          label: 'Iteration',
-          prop: 'iteration',
-          type: 'input',
-        },
-        {
-          label: 'Assignee',
-          prop: 'assignee',
-          type: 'input',
-          required: true,
-          rule: {
-            validators: [{ required: true }],
-          },
+          options:["Homme" , "Femme",'']
         },
         {
           label: 'Status',
-          prop: 'status',
+          prop: 'valid',
           type: 'select',
-          options: ['Stuck', 'Done', 'Working on it', ''],
+          options: ['Valid', 'Unvalid', ''],
           required: true,
-          rule: {
-            validators: [{ required: true }],
-          },
+         
         },
         {
-          label: 'Timeline',
-          prop: 'timeline',
+          label: 'Date Of Birth',
+          prop: 'date_of_birth',
           type: 'datePicker',
+          required: true,
+          
+        },
+        
+        {
+          label: 'Role',
+          prop: 'role',
+          type: 'select',
+          options:["ADMIN" ,"SUBADMIN" , "USER",""]
         },
       ],
       labelSize: '',
@@ -152,7 +161,7 @@ export class UserListComponent implements OnInit{
     }
   
     getList() {
-      this.busy = this.listDataService.getListData(this.pager).subscribe((res) => {
+      this.busy = this.listDataService.getUserData(this.pager).subscribe((res) => {
         const data = JSON.parse(JSON.stringify(res.pageList));
         this.basicDataSource = data;
         this.pager.total = res.total;

@@ -2,7 +2,7 @@
 import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DialogService, FormLayout, TableWidthConfig } from 'ng-devui';
 import { Subscription } from 'rxjs';
-import { Item } from 'src/app/@core/data/listData';
+import { DemandRow, Item } from 'src/app/@core/data/listData';
 import { ListDataService } from 'src/app/@core/mock/list-data.service';
 import { FormConfig } from 'src/app/@shared/components/admin-form';
 @Component({
@@ -66,60 +66,40 @@ export class DemandListComponent implements OnInit{
       },
     ];
   
-    basicDataSource: Item[] = [];
+    basicDataSource: DemandRow[] = [];
   
     formConfig: FormConfig = {
       layout: FormLayout.Horizontal,
       items: [
         {
           label: 'Id',
-          prop: 'id',
+          prop: 'idDemande',
           type: 'input',
         },
         {
           label: 'Title',
           prop: 'title',
           type: 'input',
-          required: true,
-          rule: {
-            validators: [{ required: true }],
-          },
         },
         {
-          label: 'Priority',
-          prop: 'priority',
+          label: 'Type',
+          prop: 'type',
           type: 'select',
-          options: ['Low', 'Medium', 'High'],
+          options: ['COPIECONFORME', 'LEGALISATION'],
         },
         {
-          label: 'Iteration',
-          prop: 'iteration',
-          type: 'input',
-        },
-        {
-          label: 'Assignee',
-          prop: 'assignee',
-          type: 'input',
-          required: true,
-          rule: {
-            validators: [{ required: true }],
-          },
-        },
-        {
-          label: 'Status',
-          prop: 'status',
+          label: 'State',
+          prop: 'state',
           type: 'select',
-          options: ['Stuck', 'Done', 'Working on it', ''],
-          required: true,
-          rule: {
-            validators: [{ required: true }],
-          },
+          options: ['ACCEPTED', 'REJECTED',"PENDING"],
         },
         {
-          label: 'Timeline',
-          prop: 'timeline',
-          type: 'datePicker',
+          label: 'File',
+          prop: 'file',
+          type: 'input',
+          
         },
+        
       ],
       labelSize: '',
     };
@@ -152,7 +132,7 @@ export class DemandListComponent implements OnInit{
     }
   
     getList() {
-      this.busy = this.listDataService.getListData(this.pager).subscribe((res) => {
+      this.busy = this.listDataService.getDemandData(this.pager).subscribe((res) => {
         const data = JSON.parse(JSON.stringify(res.pageList));
         this.basicDataSource = data;
         this.pager.total = res.total;
