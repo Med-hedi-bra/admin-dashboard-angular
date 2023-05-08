@@ -67,6 +67,7 @@ export class AuthService {
     return this.http.post<LoginResponse>("http://localhost:8080/municipality/auth/login", body, { headers, observe: 'response' }).pipe(
       map(response => { 
         if (response.body !=null && response.body.token!=null) {
+          console.log(response.body)
           return response.body; // return the token as the successful output
         } else {
           throw new Error('Unable to retrieve token from server');

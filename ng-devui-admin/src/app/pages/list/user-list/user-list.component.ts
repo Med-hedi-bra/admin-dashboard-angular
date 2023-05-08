@@ -230,6 +230,7 @@ export class UserListComponent implements OnInit{
     onSubmitted(e: any) {
       this.editForm!.modalInstance.hide();
       this.basicDataSource.splice(this.editRowIndex, 1, e);
+      // this.listDataService.updateMun
     }
   
     onCanceled() {

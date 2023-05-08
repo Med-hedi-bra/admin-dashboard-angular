@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 
 export interface MunicipalityRow{
-  id_mun?: string;
+  idMun?: string;
   maitre?: string;
   president?: string;
   secritaire?: string;
