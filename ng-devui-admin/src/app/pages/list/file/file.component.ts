@@ -1,18 +1,20 @@
-
 import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { DialogService, FormLayout, TableWidthConfig } from 'ng-devui';
-import { Subscription } from 'rxjs';
-import { Item, UserRow } from 'src/app/@core/data/listData';
+import { Observable, Subscription, catchError, map, throwError } from 'rxjs';
+import { Item, MunicipalityRow } from 'src/app/@core/data/listData';
 import { ListDataService } from 'src/app/@core/mock/list-data.service';
 import { FormConfig } from 'src/app/@shared/components/admin-form';
+import { Municipality } from 'src/app/@shared/models/municipalityResponse';
+import { User } from 'src/app/@shared/models/user';
+
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  selector: 'app-file',
+  templateUrl: './file.component.html',
+  styleUrls: ['./file.component.scss']
 })
-export class UserListComponent implements OnInit{
+export class FileComponent {
   
- 
+
     filterAreaShow = false;
   
     options = ['normal', 'borderless', 'bordered'];
@@ -26,10 +28,10 @@ export class UserListComponent implements OnInit{
       size: 'sm' | 'md' | 'lg';
       layout: 'auto' | 'fixed';
     } = {
-      borderType: '',
-      size: 'md',
-      layout: 'auto',
-    };
+        borderType: '',
+        size: 'md',
+        layout: 'auto',
+      };
   
     tableWidthConfig: TableWidthConfig[] = [
       {
@@ -66,73 +68,90 @@ export class UserListComponent implements OnInit{
       },
     ];
   
-    basicDataSource: UserRow[] = [];
+    basicDataSource: MunicipalityRow[] = [];
   
     formConfig: FormConfig = {
       layout: FormLayout.Horizontal,
       items: [
         {
-          label: 'CIN',
-          prop: 'cin',
+          label: 'Id',
+          prop: 'id',
           type: 'input',
-          rule: {
-            validators: [{ required: true }],
-          },
         },
         {
-          label: 'Id_Mun',
-          prop: 'code_mun',
-          type: 'input',
-          rule: {
-            validators: [{ required: true }],
-          },
-         
-        },
-        {
-          label: 'First Name',
-          prop: 'firstname',
+          label: 'Title',
+          prop: 'title',
           type: 'input',
           required: true,
-          
+          rule: {
+            validators: [{ required: true }],
+          },
         },
         {
-          label: 'Last Name',
-          prop: 'lastname',
-          type: 'input',
-         
-        },
-        {
-          label: 'Gender',
-          prop: 'gender',
+          label: 'Priority',
+          prop: 'priority',
           type: 'select',
-          options:["Homme" , "Femme",'']
+          options: ['Low', 'Medium', 'High'],
+        },
+        {
+          label: 'Iteration',
+          prop: 'iteration',
+          type: 'input',
+        },
+        {
+          label: 'Assignee',
+          prop: 'assignee',
+          type: 'input',
+          required: true,
+          rule: {
+            validators: [{ required: true }],
+          },
         },
         {
           label: 'Status',
-          prop: 'valid',
+          prop: 'status',
           type: 'select',
-          options: ['Valid', 'Unvalid', ''],
+          options: ['Stuck', 'Done', 'Working on it', ''],
           required: true,
-         
+          rule: {
+            validators: [{ required: true }],
+          },
         },
         {
-          label: 'Date Of Birth',
-          prop: 'date_of_birth',
+          label: 'Timeline',
+          prop: 'timeline',
           type: 'datePicker',
-          required: true,
-          
-        },
-        
-        {
-          label: 'Role',
-          prop: 'role',
-          type: 'select',
-          options:["ADMIN" ,"SUBADMIN" , "USER",""]
         },
       ],
       labelSize: '',
     };
   
+    formConfigMun: FormConfig = {
+      layout: FormLayout.Horizontal,
+      items: [
+        {
+          label: 'Id_Mun',
+          prop: 'idMun',
+          type: 'input',
+        },
+        {
+          label: 'Président',
+          prop: 'president',
+          type: 'input',
+        },
+        {
+          label: 'Maitre',
+          prop: 'maitre',
+          type: 'input',
+        },
+        {
+          label: 'Secritaire',
+          prop: 'secritaire',
+          type: 'input',
+        },
+      ],
+      labelSize: '',
+    };
     formData = {};
   
     editForm: any = null;
@@ -149,8 +168,12 @@ export class UserListComponent implements OnInit{
   
     @ViewChild('EditorTemplate', { static: true })
     EditorTemplate: TemplateRef<any>;
-  
-    constructor(private listDataService: ListDataService, private dialogService: DialogService, private cdr: ChangeDetectorRef) {}
+    data$: any;
+    http: any;
+    municipalityData!:Municipality[];
+    users!:User[]
+    editedRow!:MunicipalityRow;
+    constructor(private listeDataService:ListDataService, private listDataService: ListDataService, private dialogService: DialogService, private cdr: ChangeDetectorRef) { }
   
     ngOnInit() {
       this.getList();
@@ -161,7 +184,7 @@ export class UserListComponent implements OnInit{
     }
   
     getList() {
-      this.busy = this.listDataService.getUserData(this.pager).subscribe((res) => {
+      this.busy = this.listDataService.getMunData(this.pager).subscribe((res) => {
         const data = JSON.parse(JSON.stringify(res.pageList));
         this.basicDataSource = data;
         this.pager.total = res.total;
@@ -179,7 +202,7 @@ export class UserListComponent implements OnInit{
         showAnimate: false,
         contentTemplate: this.EditorTemplate,
         backdropCloseable: true,
-        onClose: () => {},
+        onClose: () => { },
         buttons: [],
       });
     }
@@ -193,7 +216,7 @@ export class UserListComponent implements OnInit{
         showAnimate: false,
         content: 'Are you sure you want to delete it?',
         backdropCloseable: true,
-        onClose: () => {},
+        onClose: () => { },
         buttons: [
           {
             cssClass: 'primary',
@@ -237,9 +260,11 @@ export class UserListComponent implements OnInit{
     }
   
     onSubmitted(e: any) {
+      this.editedRow = e;
       this.editForm!.modalInstance.hide();
       this.basicDataSource.splice(this.editRowIndex, 1, e);
-      this.listDataService.updateUser(e);
+      // console.log(this.editedRow)
+      this.listDataService.updateMun(this.editedRow);
     }
   
     onCanceled() {
@@ -247,6 +272,6 @@ export class UserListComponent implements OnInit{
       this.editRowIndex = -1;
     }
   
+  }
+  
 
-
-}

@@ -14,7 +14,7 @@ export interface UserRow{
   gender?: string;
   role?: string;
   valid?: string;
-  date_of_birth?:Date
+  dateOfBirth?:string
   code_mun?:number
 }
 

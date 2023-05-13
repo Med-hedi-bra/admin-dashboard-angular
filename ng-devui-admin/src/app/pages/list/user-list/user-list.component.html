@@ -9,7 +9,7 @@
       </d-breadcrumb> -->
       <div class="da-content-banner-title">
         <!-- {{ 'list.basicList.title' | translate }} -->
-        User List mohamed
+        User List 
       </div>
       <!-- <div>{{ 'list.basicList.description' | translate }}</div> -->
       <div>Here you can manage All Guichitier</div>
@@ -92,7 +92,7 @@
                   <d-cell>
                     <ng-template let-cellItem="cellItem">
                       <div class="over-flow-ellipsis">
-                        {{ cellItem }}
+                        {{ cellItem | date:'yyyy-MM-dd' }}
                       </div>
                     </ng-template>
                   </d-cell>

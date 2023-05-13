@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule  } from '@angular/core';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +20,7 @@ class I18NLoader implements TranslateLoader {
 @NgModule({
   declarations: [AppComponent],
   imports: [
+   
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -31,7 +32,7 @@ class I18NLoader implements TranslateLoader {
         provide: TranslateLoader,
         useClass: I18NLoader,
       },
-    }),
+    })
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

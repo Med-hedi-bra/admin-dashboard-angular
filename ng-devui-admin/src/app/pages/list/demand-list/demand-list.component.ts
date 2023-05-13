@@ -67,7 +67,7 @@ export class DemandListComponent implements OnInit{
     ];
   
     basicDataSource: DemandRow[] = [];
-  
+    editedRow!:DemandRow;
     formConfig: FormConfig = {
       layout: FormLayout.Horizontal,
       items: [
@@ -209,7 +209,9 @@ export class DemandListComponent implements OnInit{
   
     onSubmitted(e: any) {
       this.editForm!.modalInstance.hide();
+      this.editedRow = e;
       this.basicDataSource.splice(this.editRowIndex, 1, e);
+      this.listDataService.updateDem(this.editedRow);
     }
   
     onCanceled() {
