@@ -1,6 +1,28 @@
 @import "ng-devui/styles-var/devui-var.scss";
 @import "src/app/@shared/styles/common.scss";
 
+.alert {
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  
+  &--success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+  }
+  
+  &--failure {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+  }
+ 
+}
+
 .da-basic-form {
   padding: 48px;
   background-color: $devui-base-bg;

@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, of as observableOf, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable, of as observableOf, of, throwError } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
 import { Item, ListData, Card, ListPager, MunicipalityRow, UserRow, DemandRow } from '../data/listData';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -381,40 +381,40 @@ export class ListDataService extends ListData {
 
   private userData:UserRow[]=[
     {
-      cin: "string",
-  firstname: "string",
-  lastname: "str",
-  gender: "string",
-  role: "string",
-  valid: "false",
-  date_of_birth:new Date("02/03/2000"),
+      cin: "12345678",
+  firstname: "Mohamed",
+  lastname: "Bra",
+  gender: "Homme",
+  role: "ADMIN",
+  valid: "Valid",
+  dateOfBirth:"2000-02-01",
   code_mun:100
     },
     {
-      cin: "string",
-  firstname: "string",
-  lastname: "str",
-  gender: "string",
-  role: "string",
-  valid: "true",
-  date_of_birth:new Date("02/03/2000"),
+      cin: "87654321",
+  firstname: "Wassef",
+  lastname: "Chebbi",
+  gender: "Homme",
+  role: "USER",
+  valid: "Unvalid",
+  dateOfBirth:"2000-02-02",
   code_mun:100
     }
   ];
    private demandData : DemandRow[] = [
    {
-    idDemande: 20,
+    idDemande: 200,
     file: "string",
     state: "PENDING",
-    type: "string",
-    title: "string",
+    type: "COPIECONFORME",
+    title: "TITLE1",
    },
    {
     idDemande: 204,
     file: "string",
-    state: "PENDING",
+    state: "ACCEPTED",
     type: "COPIECONFORME",
-    title: "string",
+    title: "Title2",
    }
    ]
 
@@ -451,10 +451,127 @@ export class ListDataService extends ListData {
     
     )
   }
- 
+
+  fetchApiUser(){
+    let url = environment.API_URL + "/municipality/user/";
+    return this.http.get<UserRow[]>(url).subscribe({
+      next: res => {
+        let aux:string;
+        res.forEach(element => {
+          if(element.valid){
+             aux = "Valid";
+          }
+          else {
+             aux = "Unvalid"
+          }
+          this.userData.push({
+            cin: element.cin,
+            firstname: element.firstname,
+            lastname: element.lastname,
+            gender: element.gender,
+            role: element.role,
+            valid: aux,
+            dateOfBirth:element.dateOfBirth,
+             code_mun:element.code_mun
+          })
+        }
+        );
+        console.log("Mun data fetched");
+      },
+      error: err => {
+        throwError(() => new Error(err))
+      }
+    }
+    
+    )
+  }
+
+  fetchApiDemand(){
+    let url = environment.API_URL + "/demande/get";
+    return this.http.get<DemandRow[]>(url).subscribe({
+      next: res => {
+        res.forEach(element => {
+          this.demandData.push({
+            idDemande: element.idDemande,
+            title:element.title,
+            type: element.type,
+            state: element.state,
+          })
+        }
+        );
+        console.log("Mun data fetched");
+      },
+      error: err => {
+        throwError(() => new Error(err))
+      }
+    }
+    
+    )
+  }
+  // you have to fix how to handle the failure  returned from backend 
+   addNewMunicipality(mun:MunicipalityRow){
+    let url = environment.API_URL+"/municipality/add";
+    
+      this.http.post(url,mun).subscribe({
+      next:data=>{
+        return of(true);
+      },
+      error:err=>{
+        
+        return of(false);
+      }
+    })
+    
+  }
+  updateDem(editedRow:DemandRow){
+    console.log(editedRow.idDemande)
+    let url = environment.API_URL+"/demande/update/"+editedRow.idDemande;
+    this.http.put(url,editedRow).subscribe({
+      next:data=>{
+        console.log(data)
+      },
+      error:err=>{
+        throwError(()=>new Error(err))
+      }
+    })
+    
+  }
+
+  updateUser(editedRow:UserRow){
+   
+   if(editedRow.dateOfBirth){
+    let date = new Date(editedRow.dateOfBirth);
+    editedRow.dateOfBirth = date.toISOString();
+   }
+   console.log(editedRow)
+    let url = environment.API_URL+"/municipality/user/update/"+editedRow.cin;
+    this.http.put(url,editedRow).subscribe({
+      next:data=>{
+        console.log(data)
+      },
+      error:err=>{
+        throwError(()=>new Error(err))
+      }
+    })
+    
+  }
 
   updateMun(editedRow:MunicipalityRow){
     let url = environment.API_URL+"/municipality/update/"+editedRow.idMun
+    this.http.put(url,editedRow).subscribe({
+      next:data=>{
+        console.log(data)
+      },
+      error:err=>{
+        throwError(()=>new Error(err))
+      }
+    })
+    
+
+  }
+
+  updateDemand(editedRow:DemandRow){
+    let url = environment.API_URL+"/demand/update/"+editedRow.idDemande
     this.http.put(url,editedRow).subscribe({
       next:data=>{
         console.log(data)

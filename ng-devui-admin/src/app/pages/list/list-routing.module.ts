@@ -10,6 +10,7 @@ import { AdminListComponent } from './admin-list/admin-list.component';
 import { MunicipalityListComponent } from './municipality-list/municipality-list.component';
 import { DemandListComponent } from './demand-list/demand-list.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { FileComponent } from './file/file.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: "municipalityList", component: MunicipalityListComponent },
       { path: "demandList", component: DemandListComponent },
       { path: "userList", component: UserListComponent },
+      { path:"file",component:FileComponent},
       { path: 'basic', component: BasicListComponent },
       { path: 'card', component: CardListComponent },
       { path: 'editable', component: EditableListComponent },

@@ -71,6 +71,8 @@ export class PagesComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.fetchApi1();
+    this.dataService.fetchApiDemand();
+    this.dataService.fetchApiUser();
     this.translate
       .get('page')
       .pipe(takeUntil(this.destroy$))
